@@ -1,0 +1,42 @@
+*{
+ 
+    box-sizing: border-box;
+    font-family: "Montserrat";
+  
+}
+.icon{
+    position: absolute;
+    right: 0%;
+ 
+}
+
+
+@font-face {
+    font-family: Montserrat;
+    src:url("../../assets/Fonts/Montserrat-SemiBold.ttf");
+  }
+  @media (max-width:930px) and (min-width:755px) {
+.contact{
+    font-size: 0.8rem;
+    padding-top: 1.4vh;
+}
+   
+}
+@font-face {
+    font-family: Montserrat;
+    src:url("../../assets/Fonts/Montserrat-SemiBold.ttf");
+  }
+  @media (max-width:755px) {
+.contact{
+    font-size: 0.65rem;
+    padding-top: 1.6vh;
+}
+   
+}
+@media (min-height:700px) {
+    .contact{
+        padding-top:7px;
+       height:33px;
+    }
+       
+    }

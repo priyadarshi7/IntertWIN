@@ -1,0 +1,30 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+}
+@font-face {
+    font-family: fonty;
+    src:url("../../assets/good-times.rg-regular.otf");
+  }
+body{
+    height: 100svh;
+    width:100svw;
+    background: linear-gradient( #03021D 15%,#3400C8 60.63%, #270095 100.35%,#03021D 15%);
+
+}
+.png{
+    position: fixed;
+    left: 42%;
+    top:35%;
+   
+}
+h1{
+    font-family: fonty;
+    position: fixed;
+    left: 21%;
+    top:70%;
+    color: aliceblue;
+font-weight: 400;
+font-size: 126px;
+}

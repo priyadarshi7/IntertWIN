@@ -1,32 +1,92 @@
-// src/MyCalendar.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction'; 
-import axios from "axios"
+import axios from "axios";
 import './Calendar.css'; 
 import Logo from "../../assets/Logo/Logo.png";
+import CFLogo from "../../assets/Logo/Codeforces.png";
+import { DeleteModal } from '../../components/modals/Delete Modal/DeleteModal';
 
 const MyCalendar = () => {
   const [events, setEvents] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [eventToDelete, setEventToDelete] = useState(null);
+
+  useEffect(() => {
+    const fetchCFContests = async () => {
+      try {
+        const response = await axios.get("https://codeforces.com/api/contest.list");
+        const contests = response.data.result;
+
+        contests.forEach(contest => {
+          if (contest.phase === "BEFORE" || contest.phase === "CODING" || contest.phase === "FINISHED") {
+            const futureDate = new Date(contest.startTimeSeconds * 1000);
+            const newEvent = {
+              id: contest.id,
+              title: contest.name,
+              start: futureDate.toISOString(),
+              allDay: true,
+              source: 'codeforces',
+            };
+            setEvents(prevEvents => [...prevEvents, newEvent]);
+          }
+        });
+      } catch (error) {
+        console.error("Error fetching contests:", error);
+      }
+    };
+
+    fetchCFContests();
+  }, []);
 
   const handleDateClick = (arg) => {
     const title = prompt('Enter Event Title:');
     if (title) {
-      const newEvent = { id: Date.now(), title, start: arg.date, allDay: true };
-      setEvents([...events, newEvent]);
+      const newEvent = { id: Date.now(), title, start: arg.dateStr, allDay: true, source: 'manual' };
+      setEvents(prevEvents => [...prevEvents, newEvent]);
     }
   };
 
   const handleEventClick = (info) => {
-    const confirmDelete = window.confirm('Do you want to delete this event?');
-    if (confirmDelete) {
-      setEvents(events.filter(event => event.id !== Number(info.event.id))); // Ensure the id is a number
+    if (info.event.extendedProps.source === 'manual') {
+      setEventToDelete(info.event);
+      setOpen(true);
+    } else {
+      alert('You cannot delete events fetched from the API.');
     }
   };
 
-  
+  const handleDelete = () => {
+    if (eventToDelete) {
+      setEvents(prevEvents => prevEvents.filter(event => event.id !== eventToDelete.id));
+      setOpen(false);
+      setEventToDelete(null); // Reset the event to delete
+    }
+  };
+
+  const eventContent = (eventInfo) => {
+    const isCodeforcesEvent = eventInfo.event.extendedProps.source === 'codeforces';
+
+    return (
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        padding: '5px',
+        backgroundColor: isCodeforcesEvent ? '#f5f5dc' : '',
+        borderRadius: '5px',
+        color: 'black',
+        border: isCodeforcesEvent ? '1px solid #ccc' : 'none',
+        cursor: 'pointer',
+      }}>
+        {isCodeforcesEvent && (
+          <img src={CFLogo} alt="Codeforces Logo" style={{ width: '20px', height: '20px', marginRight: '5px' }} />
+        )}
+        <span>{eventInfo.event.title}</span>
+      </div>
+    );
+  };
 
   return (
     <div className="calendar-main">
@@ -40,12 +100,10 @@ const MyCalendar = () => {
         <FullCalendar
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
           initialView="dayGridMonth"
-          events={events.map(event => ({
-            ...event,
-            id: String(event.id), // Ensure the id is a string for FullCalendar
-          }))}
+          events={events}
           dateClick={handleDateClick}
           eventClick={handleEventClick}
+          eventContent={eventContent}
           headerToolbar={{
             left: 'prev,next today',
             center: 'title',
@@ -54,6 +112,12 @@ const MyCalendar = () => {
           height="100%"
         />
       </div>
+      <DeleteModal 
+        open={open} 
+        onClose={() => setOpen(false)} 
+        onDelete={handleDelete} 
+        eventTitle={eventToDelete ? eventToDelete.title : ''}
+      />
     </div>
   );
 };

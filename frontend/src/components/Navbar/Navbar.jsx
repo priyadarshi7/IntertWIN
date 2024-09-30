@@ -25,6 +25,7 @@ function DrawerAppBar(props) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const { user, loginWithRedirect, isAuthenticated, logout  } = useAuth0();
+  const [activePage,setActivePage] = React.useState("");
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
@@ -71,8 +72,8 @@ function DrawerAppBar(props) {
               </Button>
             ))} */}
                 <ul style={{display:'flex', justifyContent:"space-between", listStyle:"none", gap:"1.5vh", paddingLeft:"0"}} className='nav-list'>
-             <li><Button sx={{ color: "white",fontFamily:"Montserrat"}}>ABOUT US</Button></li>
-              <NavLink to="/calendar"><li><Button sx={{ color: "white",fontFamily:"Montserrat"}}>EVENT TRACKER</Button></li></NavLink>
+             <NavLink to="/"><li><Button sx={{ color: "white",fontFamily:"Montserrat",border:activePage==="HOME"?"1px solid #B6BDFF":"",borderRadius:"25px"}} onClick={()=>{setActivePage("HOME")}}>HOME</Button></li></NavLink>
+             {isAuthenticated?<NavLink to="/calendar"><li><Button sx={{ color:"white",fontFamily:"Montserrat",border:activePage==="EVENT TRACKER"?"1px solid #B6BDFF":"",borderRadius:"25px"}} onClick={()=>{setActivePage("EVENT TRACKER")}}>EVENT TRACKER</Button></li></NavLink>:""}
               <li><Button sx={{ color: "white",fontFamily:"Montserrat"}}>TEAM</Button></li>
               <li><Button sx={{ color: "white",fontFamily:"Montserrat"}}>FAQ</Button></li>
               {isAuthenticated?  <li><Button sx={{ color: "white",fontFamily:"Montserrat"}} onClick={e=>logout()}>LOGOUT</Button></li>:

@@ -8,21 +8,25 @@
     src:url("../../assets/good-times.rg-regular.otf");
   }
 body{
-    height: 100svh;
+    height: 100%;
     width:100svw;
-    background: linear-gradient( #03021D 15%,#3400C8 60.63%, #270095 100.35%,#03021D 15%);
-
+    background: linear-gradient( #03021D 15%,#3400C8 60.63%, #270095 100.35%,#03021D 15%),
+    linear-gradient(180deg,#270095 100.35%,#03021D 15%);
+background-repeat: no-repeat;
 }
 .png{
    margin-top: 15%;
    
 }
-h1{
+.text1{
     font-family: fonty;
   margin-top: 5%;
     color: aliceblue;
 font-weight: 400;
 font-size: 126px;
+}
+.img2{
+    margin-top: 6%;
 }
 .page{
     display: flex;
@@ -30,3 +34,64 @@ font-size: 126px;
     justify-content: center;
     align-items: center;
 }
+#img2{
+    border-radius: 20px;
+   border: 1px solid #4285F4;
+}
+.text2{
+    font-family: fonty;
+    margin-top: 5%;
+      color: aliceblue;
+  font-weight: 400;
+  font-size: 70px;
+}
+.text3{
+    margin-top: 1%;
+    color: #FFFFFFB2;
+    font-family: afac;
+font-size: 30px;
+}
+@font-face {
+    font-family: fonty2;
+    src:url("../../assets/Afacad-Regular-BF6566a53564cc8.otf");
+  }
+  .text4{
+    margin-top: 3%;
+    color:#FFFFFF;
+    font-size: 50px;
+    font-family: fonty2;
+font-weight: 700;
+  }
+  .text{
+    margin-top: 6%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: left;
+   
+  }
+  .box{
+    display: flex;
+    justify-content: center;
+    
+  }
+  .text5{
+    font-weight: 700;
+    font-size: 50px;
+    font-family: fonty2;
+    color: #FFFFFF;
+  }
+  .text6{
+    font-weight: 400;
+    font-size: 40px;
+    font-family: fonty2;
+    color: #FFFFFFB2;
+  }
+  .box2{
+    margin-top: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+  }

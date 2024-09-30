@@ -1,7 +1,11 @@
+@font-face {
+    font-family: afacad;
+    src: url('../../assets/Font/Afacad-VariableFont_wght.ttf');
+}
+
 *{
  
     box-sizing: border-box;
-    font-family: "Montserrat";
   
 }
 .icon{
@@ -10,11 +14,10 @@
  
 }
 
+.nav-list ul li{
+    font-family: 'afacad' !important;
+}
 
-@font-face {
-    font-family: Montserrat;
-    src:url("../../assets/Fonts/Montserrat-SemiBold.ttf");
-  }
   @media (max-width:930px) and (min-width:755px) {
 .contact{
     font-size: 0.8rem;
@@ -22,10 +25,6 @@
 }
    
 }
-@font-face {
-    font-family: Montserrat;
-    src:url("../../assets/Fonts/Montserrat-SemiBold.ttf");
-  }
   @media (max-width:755px) {
 .contact{
     font-size: 0.65rem;

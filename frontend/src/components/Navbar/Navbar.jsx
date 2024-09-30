@@ -15,12 +15,16 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import "./Navbar.css"
+import { NavLink } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
 const drawerWidth = 260;
 const navItems = ['About Us', 'Services','FAQs', 'Team','Login'];
 
 function DrawerAppBar(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
+
+  const { user, loginWithRedirect, isAuthenticated, logout  } = useAuth0();
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
@@ -61,11 +65,20 @@ function DrawerAppBar(props) {
           </IconButton>
           </div>
           <Box sx={{ display: { xs: 'none', sm: 'flex', justifyContent: "space-evenly",alignItems:"center"},margin:"auto",borderWidth:'0.2rem',borderStyle:'solid',borderColor:"#6A79FF", background:"linear-gradient(90deg, #050223 0%, #06054D 100%)",borderRadius: "1.7rem",fontWeight:"500",padding:'1vh',marginTop:"3vh"}}>
-            {navItems.map((item) => (
+            {/* {navItems.map((item) => (
               <Button key={item} sx={{ color: "white",fontFamily:"Montserrat"}}>
                 {item}
               </Button>
-            ))}
+            ))} */}
+                <ul style={{display:'flex', justifyContent:"space-between", listStyle:"none", gap:"1.5vh", paddingLeft:"0"}} className='nav-list'>
+             <li><Button sx={{ color: "white",fontFamily:"Montserrat"}}>ABOUT US</Button></li>
+              <NavLink to="/calendar"><li><Button sx={{ color: "white",fontFamily:"Montserrat"}}>EVENT TRACKER</Button></li></NavLink>
+              <li><Button sx={{ color: "white",fontFamily:"Montserrat"}}>TEAM</Button></li>
+              <li><Button sx={{ color: "white",fontFamily:"Montserrat"}}>FAQ</Button></li>
+              {isAuthenticated?  <li><Button sx={{ color: "white",fontFamily:"Montserrat"}} onClick={e=>logout()}>LOGOUT</Button></li>:
+              <li><Button sx={{ color: "white",fontFamily:"Montserrat"}} onClick={e=>loginWithRedirect()}>LOGIN</Button></li>
+              }
+            </ul>
           </Box>
         </Toolbar>
       </AppBar>

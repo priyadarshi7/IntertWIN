@@ -5,7 +5,7 @@
 }
 @font-face {
     font-family: fonty;
-    src:url("../../assets/good-times.rg-regular.otf");
+    src:url("../../assets/Font/good-times.rg-regular.otf");
   }
 body{
     height: 100svh;
@@ -14,8 +14,7 @@ body{
 
 }
 .png{
-   margin-top: 15%;
-   
+   margin-top: 5%; 
 }
 h1{
     font-family: fonty;
@@ -25,6 +24,7 @@ font-weight: 400;
 font-size: 126px;
 }
 .page{
+    height: 100svh;
     display: flex;
     flex-direction: column;
     justify-content: center;

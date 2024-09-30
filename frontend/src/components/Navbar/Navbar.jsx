@@ -60,7 +60,7 @@ function DrawerAppBar(props) {
             borderRadius='inherit'/>
           </IconButton>
           </div>
-          <Box sx={{ display: { xs: 'none', sm: 'flex', justifyContent: "space-evenly",alignItems:"center"},margin:"auto",borderWidth:'0.2rem',borderStyle:'solid',borderColor:"#6A79FF", background:"linear-gradient(90deg, #050223 0%, #06054D 100%)",borderRadius: "1.7rem",fontWeight:"500",padding:'1vh',marginTop:"3vh",width:"45vw"}}>
+          <Box sx={{ display: { xs: 'none', sm: 'flex', justifyContent: "space-evenly",alignItems:"center"},margin:"auto",borderWidth:'0.2rem',borderStyle:'solid',borderColor:"#6A79FF", background:"linear-gradient(90deg, #050223 0%, #06054D 100%)",borderRadius: "1.7rem",fontWeight:"500",padding:'1vh',marginTop:"3vh"}}>
             {navItems.map((item) => (
               <Button key={item} sx={{ color: "white",fontFamily:"Montserrat"}}>
                 {item}

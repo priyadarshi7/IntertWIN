@@ -14,17 +14,19 @@ body{
 
 }
 .png{
-    position: fixed;
-    left: 42%;
-    top:35%;
+   margin-top: 15%;
    
 }
 h1{
     font-family: fonty;
-    position: fixed;
-    left: 21%;
-    top:70%;
+  margin-top: 5%;
     color: aliceblue;
 font-weight: 400;
 font-size: 126px;
+}
+.page{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }

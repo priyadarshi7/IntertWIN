@@ -1,0 +1,265 @@
+@font-face {
+    font-family: fonty;
+    src:url("../../assets/Font/good-times.rg-regular.otf");
+}
+
+@keyframes floating {
+  from { transform: translate(0,  0px); }
+  65%  { transform: translate(0, 50px); }
+  to   { transform: translate(0, -0px); }    
+}
+
+.text2{
+  font-family: fonty;
+  margin-top: 5%;
+  color: aliceblue;
+  font-weight: 400;
+  font-size: 70px;
+  text-align: center;
+}
+.text3{
+    margin-top: 1%;
+    color: #FFFFFFB2;
+    font-family: afac;
+    font-size: 30px;
+    text-align: center;
+}
+
+.text4{
+  margin-top: 3%;
+  color:#FFFFFF;
+  font-size: 50px;
+  font-family: fonty2;
+  font-weight: 700;
+  text-align: center;
+}
+
+.text{
+    margin-top: 40px;
+    width:50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: left;
+    margin-bottom: 40px;
+  }
+
+.box{
+    width:100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+}
+
+.icons{
+  width:50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icons img{
+  width:70%;
+}
+
+.icons .overlay img{
+  width:400px;
+  animation-name: floating;
+  animation-name: floating;
+  animation-duration: 2s; /* Made it quicker! */
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out; 
+}
+
+.icons .overlay{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width:50%;
+}
+
+  .box2{
+    margin-top: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .box0{
+    width:100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .icons .overlay{
+    z-index: 1;
+    position: absolute;
+  }
+
+  .icons .overlay .sec-1{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /*RESPONSIVE*/
+
+  @media (max-width:630px) {
+    .box{
+      flex-direction: column;
+    }
+  }
+
+  @media (max-width:1024px) {
+    .text .text2{
+      margin-top: 10px;
+      font-weight: 400;
+      font-size: 50px;
+    }
+    .text .text3{
+        margin-top: 10px;
+        font-size: 10px;
+    }
+    
+    .text .text4{
+      margin-top: 10px;
+      font-size: 30px;
+    }
+  }
+
+  @media (max-width:830px) {
+    .text .text2{
+      margin-top: 10px;
+      font-weight: 400;
+      font-size: 50px;
+    }
+    .text .text3{
+        margin-top: 10px;
+        font-size: 10px;
+    }
+    
+    .text .text4{
+      margin-top: 10px;
+      font-size: 30px;
+    }
+  }
+
+  @media (max-width:770px) {
+    .text .text2{
+      margin-top: 10px;
+      font-weight: 400;
+      font-size: 60px;
+    }
+    .text .text3{
+        margin-top: 10px;
+        font-size: 20px;
+    }
+    
+    .text .text4{
+      margin-top: 10px;
+      font-size: 40px;
+    }
+    
+    .text{
+        margin-top: 40px;
+      }
+
+      .icons img{
+        width:350px;
+      }
+      
+      .icons .overlay img{
+        width:300px;
+      }
+    
+  }
+
+  @media (max-width:580px) {
+    .box{
+      flex-direction: column;
+    }
+    .text .text2{
+      margin-top: 10px;
+      font-weight: 400;
+      font-size: 30px;
+    }
+    .text .text3{
+        margin-top: 10px;
+        font-size: 10px;
+    }
+    
+    .text .text4{
+      margin-top: 10px;
+      font-size: 30px;
+    }
+    
+    .text{
+        margin-top: 40px;
+      }
+
+      .icons img{
+        width:250px;
+      }
+      
+      .icons .overlay img{
+        width:200px;
+      }
+  }
+/* 
+  @media (max-width:450px) {
+    .icons img{
+      width:130px;
+    }
+    
+    .icons .overlay img{
+      width:70px;
+    }
+
+    .text .text2{
+      margin-top: 10px;
+      font-weight: 400;
+      font-size: 20px;
+    }
+    .text .text3{
+        margin-top: 10px;
+        font-size: 10px;
+    }
+    
+    .text .text4{
+      margin-top: 10px;
+      font-size: 20px;
+    }
+    
+  } */
+
+  @media (max-width:420px) {
+
+    .text .text2{
+      margin-top: 10px;
+      font-weight: 400;
+      font-size: 20px;
+    }
+    .text .text3{
+        margin-top: 10px;
+        font-size: 5px;
+    }
+    
+    .text .text4{
+      margin-top: 10px;
+      font-size: 20px;
+    }
+
+    .icons img{
+      width:150px;
+    }
+    
+    .icons .overlay img{
+      width:100px;
+    }
+
+  }
+
+  

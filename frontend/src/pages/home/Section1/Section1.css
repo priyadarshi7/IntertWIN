@@ -1,0 +1,92 @@
+.img2{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#img2{
+    border-radius: 20px;
+    border: 1px solid #4285F4;
+    width: 100%;
+    height: 100%;
+  }
+
+  .box0{
+    width:100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* From Uiverse.io by JaydipPrajapati1910 */ 
+.card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background-color: red;
+    border-radius: 10px;
+    border: none;
+    color: white;
+    position: relative;
+    cursor: pointer;
+    font-weight: 900;
+    transition-duration: .2s;
+    background: linear-gradient(0deg, #000, #272727);
+    margin: 80px;
+    margin-top: 200px;
+  }
+  
+  .card:before, .card:after {
+    content: '';
+    position: absolute;
+    left: -2px;
+    top: -2px;
+    border-radius: 10px;
+    background: linear-gradient(45deg, 
+  #00f0ff,  /* Light neon blue */
+  #00d8ff,  /* Bright neon blue */
+  #00bfff,  /* Slightly darker neon blue */
+  #009cff,  /* Medium neon blue */
+  #007aff,  /* Darker neon blue */
+  #00f0ff,  /* Light neon blue again for repetition */
+  #00d8ff,  
+  #00bfff,  
+  #009cff,  
+  #007aff
+);
+    background-size: 400%;
+    width: calc(100%);
+    height: calc(100%);
+    z-index: -1;
+    animation: steam 20s linear infinite;
+  }
+  
+  @keyframes steam {
+    0% {
+      background-position: 0 0;
+    }
+  
+    50% {
+      background-position: 400% 0;
+    }
+  
+    100% {
+      background-position: 0 0;
+    }
+  }
+  
+  .card:after {
+    filter: blur(100px);
+  }
+
+
+  @media (max-width:560px){
+    .card{
+        margin-top: 50px;
+        height: 200px;
+        margin: 20px;
+    }
+  }
+  

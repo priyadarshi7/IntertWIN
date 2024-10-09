@@ -10,21 +10,16 @@
 
 body{
     height: 100%;
-    background: linear-gradient( #03021D 15%,#3400C8 60.63%, #270095 100.35%,#03021D 15%),
-    linear-gradient(180deg,#270095 100.35%,#03021D 15%);
-    background-repeat: no-repeat;
+    /* background-color: black; */
+}
+
+.bg{
+  width:100%;
+  height:100svh;
 }
 
 .png{
    margin-top: 5%; 
-}
-
-.text1{
-  font-family: fonty;
-  margin-top: 5%;
-  color: aliceblue;
- font-weight: 400;
- font-size: 126px;
 }
 
 .img2{
@@ -43,83 +38,53 @@ body{
     align-items: center;
 }
 
-#img2{
-  border-radius: 20px;
-  border: 1px solid #4285F4;
-}
-.text2{
+.page .gr .text1{
   font-family: fonty;
   margin-top: 5%;
   color: aliceblue;
-  font-weight: 400;
-  font-size: 70px;
-  text-align: center;
-}
-.text3{
-    margin-top: 1%;
-    color: #FFFFFFB2;
-    font-family: afac;
-    font-size: 30px;
-    text-align: center;
+ font-weight: 400;
+ font-size: 110px;
 }
 
-.text4{
-  margin-top: 3%;
-  color:#FFFFFF;
-  font-size: 50px;
-  font-family: fonty2;
-  font-weight: 700;
-  text-align: center;
+.page .png img{
+  width:200px;
 }
 
-.text{
-    margin-top: 6%;
-    width:50%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: left;
+
+  /*RESPONSIVE*/
+  @media (max-width:770px) {
+    .page .gr .text1{
+      font-size: 80px;
+    }
+    .page .png img{
+      width: 160px;
+    }
   }
 
-.box{
-    width:100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.icons{
-  width:50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-  .text5{
-    font-weight: 700;
-    font-size: 50px;
-    font-family: fonty2;
-    color: #FFFFFF;
-  }
-  
-  .text6{
-    font-weight: 400;
-    font-size: 40px;
-    font-family: fonty2;
-    color: #FFFFFFB2;
+  @media (max-width:570px) {
+    .page .gr .text1{
+      font-size: 60px;
+    }
+    .page .png img{
+      width: 100px;
+    }
   }
 
-  .box2{
-    margin-top: 40%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+
+  @media (max-width:420px) {
+    .page .gr .text1{
+      font-size: 50px;
+    }
+    .page .png img{
+      width: 90px;
+    }
   }
 
-  .box0{
-    width:100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  @media (max-width:320px) {
+    .page .gr .text1{
+      font-size: 30px;
+    }
+    .page .png img{
+      width: 90px;
+    }
   }

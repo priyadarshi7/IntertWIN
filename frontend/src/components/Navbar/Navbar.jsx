@@ -25,7 +25,6 @@ function DrawerAppBar(props) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const { user, loginWithRedirect, isAuthenticated, logout  } = useAuth0();
-  const [activePage,setActivePage] = React.useState("");
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
@@ -61,23 +60,23 @@ function DrawerAppBar(props) {
             onClick={handleDrawerToggle}
             sx={{ mr: 2, display: { sm: 'none' } ,color:'#6A79FF',fontSize:'3.6rem',paddingTop:'5.5vh',borderRadius:'6rem'}}
           >
-            <MenuIcon fontSize='inherit'
-            borderRadius='inherit'/>
+            <MenuIcon sx={{fontSize:'inherit',
+            borderRadius:'inherit'}}/>
           </IconButton>
           </div>
-          <Box sx={{ display: { xs: 'none', sm: 'flex', justifyContent: "space-evenly",alignItems:"center"},margin:"auto",borderWidth:'0.2rem',borderStyle:'solid',borderColor:"#6A79FF", background:"linear-gradient(90deg, #050223 0%, #06054D 100%)",borderRadius: "1.7rem",fontWeight:"500",padding:'1vh',marginTop:"3vh"}}>
+          <Box sx={{ display: { xs: 'none', sm: 'flex', justifyContent: "space-evenly",alignItems:"center"},margin:"auto",borderWidth:'0.2rem',borderStyle:'solid',borderColor:"#6A79FF", background:"linear-gradient(90deg, #050223 0%, #06054D 100%)",borderRadius: "1.7rem",fontWeight:"500",padding:"5px",marginTop:"3vh"}}>
             {/* {navItems.map((item) => (
               <Button key={item} sx={{ color: "white",fontFamily:"Montserrat"}}>
                 {item}
               </Button>
             ))} */}
                 <ul style={{display:'flex', justifyContent:"space-between", listStyle:"none", gap:"1.5vh", paddingLeft:"0"}} className='nav-list'>
-             <NavLink to="/"><li><Button sx={{ color: "white",fontFamily:"Montserrat",border:activePage==="HOME"?"1px solid #B6BDFF":"",borderRadius:"25px"}} onClick={()=>{setActivePage("HOME")}}>HOME</Button></li></NavLink>
-             {isAuthenticated?<NavLink to="/calendar"><li><Button sx={{ color:"white",fontFamily:"Montserrat",border:activePage==="EVENT TRACKER"?"1px solid #B6BDFF":"",borderRadius:"25px"}} onClick={()=>{setActivePage("EVENT TRACKER")}}>EVENT TRACKER</Button></li></NavLink>:""}
-              <li><Button sx={{ color: "white",fontFamily:"Montserrat"}}>TEAM</Button></li>
-              <li><Button sx={{ color: "white",fontFamily:"Montserrat"}}>FAQ</Button></li>
-              {isAuthenticated?  <li><Button sx={{ color: "white",fontFamily:"Montserrat"}} onClick={e=>logout()}>LOGOUT</Button></li>:
-              <li><Button sx={{ color: "white",fontFamily:"Montserrat"}} onClick={e=>loginWithRedirect()}>LOGIN</Button></li>
+             <NavLink to="/"><li><Button sx={{ color: "white",fontFamily:"afacad"}} onClick={()=>{setActivePage("HOME")}}>HOME</Button></li></NavLink>
+             {isAuthenticated?<NavLink to="/calendar"><li><Button sx={{ color:"white",fontFamily:"afacad"}} onClick={()=>{setActivePage("EVENT TRACKER")}}>EVENT TRACKER</Button></li></NavLink>:""}
+              {isAuthenticated?<NavLink to={`/profile/${user.sub}`}><li><Button sx={{ color: "white",fontFamily:"afacad"}}>PROFILE</Button></li></NavLink>:""}
+              <li><Button sx={{ color: "white",fontFamily:"afacad"}}>FAQ</Button></li>
+              {isAuthenticated?  <li><Button sx={{ color: "white",fontFamily:"afacad"}} onClick={e=>logout()}>LOGOUT</Button></li>:
+              <li><Button sx={{ color: "white",fontFamily:"afacad"}} onClick={e=>loginWithRedirect()}>LOGIN</Button></li>
               }
             </ul>
           </Box>

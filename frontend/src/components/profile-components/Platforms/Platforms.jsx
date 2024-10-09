@@ -109,6 +109,19 @@ export default function Platforms() {
               />
             </div>
           </div>
+          {/*GitHub*/}
+          <div className="field">
+            <div className="sub-field">
+              <label>GitHub</label>
+              <input
+                type="text"
+                placeholder="GitHub"
+                name="github" // Add name attribute
+                onChange={handleInputs}
+                value={userData.github || ""}
+              />
+            </div>
+          </div>
         </form>
       </div>
     </div>

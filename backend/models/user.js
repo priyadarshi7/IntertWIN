@@ -52,6 +52,9 @@ const userSchema = new mongoose.Schema({
     codechef: {
         type: String,
     },
+    github: {
+        type: String,
+    },
 });
 
 // Model

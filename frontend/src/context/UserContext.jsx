@@ -22,7 +22,8 @@ export const UserProvider = ({ children }) => {
         website: "",
         codeforces: "",
         leetcode: "",
-        codechef: ""
+        codechef: "",
+        github:"",
     });
     const [leetcodeData, setLeetCodeData] = useState({});
     const [loading, setLoading] = useState(true);

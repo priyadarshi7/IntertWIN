@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { useUserContext } from "../../context/UserContext";
 import { Doughnut } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import GitHubContributions from "../../components/GitHub/GitHubContributions";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -104,21 +105,24 @@ export default function Dashboard() {
           </div>
           <div className="user-details">
             <div className="user-detail" id="user-detail-email">
-              {userData?.email || "N/A"}
+              {userData?.email || ""}
             </div>
-            <div className="user-detail">{userData?.college || "N/A"}</div>
-            <div className="user-detail">{userData?.degree || "N/A"}</div>
-            <div className="user-detail">{userData?.branch || "N/A"}</div>
+            <div className="user-detail">{userData?.college || ""}</div>
+            <div className="user-detail">{userData?.degree || ""}</div>
+            <div className="user-detail">{userData?.branch || ""}</div>
             <div className="user-sub-heading">Socials</div>
-            <div className="user-detail">{userData?.linkedIn || "N/A"}</div>
-            <div className="user-detail">{userData?.twitter || "N/A"}</div>
-            <div className="user-detail">{userData?.website || "N/A"}</div>
+            <div className="user-detail">{userData?.linkedIn || ""}</div>
+            <div className="user-detail">{userData?.twitter || ""}</div>
+            <div className="user-detail">{userData?.website || ""}</div>
             <div className="user-sub-heading">Platforms</div>
+            <div className="user-detail">{userData?.codeforces || ""}</div>
+            <div className="user-detail">{userData?.leetcode || ""}</div>
+            <div className="user-detail">{userData?.codechef || ""}</div>
           </div>
         </div>
         <div id="notifications" className="grid-parts">Notify</div>
         <div id="projects" className="grid-parts">
-        <div id="gh" data-login="priyadarshi7"></div>
+        <GitHubContributions username={userData.github} theme="dracula"/>
         </div>
         <div id="quickStats" className="grid-parts">
           <div className="grid-content">

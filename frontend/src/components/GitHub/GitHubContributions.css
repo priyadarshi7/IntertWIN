@@ -7,9 +7,9 @@
   }
   
   .github-contributions img {
-    width: 100%; /* Make the image responsive */
-    max-width: 800px; /* Set a max width for the image */
-    height: auto; /* Maintain aspect ratio */
-    border-radius: 8px; /* Round the image corners */
+    width: 100%; 
+    max-width: 800px; 
+    height: auto; 
+    border-radius: 8px; 
   }
   

@@ -23,22 +23,36 @@ export default function Dashboard() {
   const { user } = useAuth0();
   const { userData, getUserProfile, getLeetcodeProblems, leetcodeData, codeforcesRating, getCodeforcesRating } = useUserContext();
   const [platformIndex, setPlatformIndex] = useState(0);
-  const [displayRating, setDisplayRating] = useState("");
-  const [maxRating, setMaxRating] = useState("");
+  const [displayRating, setDisplayRating] = useState(null);
+  const [maxRating, setMaxRating] = useState(null);
 
+  // Fetch data based on user or other relevant state changes
   useEffect(() => {
     if (user) {
       getUserProfile();
       getLeetcodeProblems();
       getCodeforcesRating();
     }
-  }, [user, getUserProfile, getLeetcodeProblems, getCodeforcesRating]);
+  }, [user]); // runs when `user` changes
 
+  // Optional: Re-fetch data based on userData or other conditions
+  useEffect(() => {
+    if (userData) {
+      getLeetcodeProblems(); // Re-fetch if userData changes
+      getCodeforcesRating(); // Re-fetch if userData changes
+    }
+  }, [userData]); // runs when `userData` changes
+
+  // Prepare Doughnut chart data
   const data = {
     labels: ['Easy', 'Medium', 'Hard'],
     datasets: [{
-      data: [leetcodeData.easySolved || 0, leetcodeData.mediumSolved || 0, leetcodeData.hardSolved || 0],
-      backgroundColor: ['#50FF6E', '#4285F4','#FF5640',],
+      data: [
+        leetcodeData.easySolved || 0,
+        leetcodeData.mediumSolved || 0,
+        leetcodeData.hardSolved || 0
+      ],
+      backgroundColor: ['#50FF6E', '#4285F4', '#FF5640'],
       hoverOffset: 4,
     }],
   };
@@ -58,7 +72,6 @@ export default function Dashboard() {
 
   const availablePlatforms = [
     userData?.codeforces && { name: "Codeforces", url: userData.codeforces },
-    // userData?.leetcode && { name: "LeetCode", url: userData.leetcode },
     userData?.codechef && { name: "CodeChef", url: userData.codechef }
   ].filter(Boolean);
 
@@ -81,7 +94,12 @@ export default function Dashboard() {
       setDisplayRating(latestRating);
       setMaxRating(highestRating);
     }
-  }, [platformIndex, codeforcesRating]);
+  }, [platformIndex, codeforcesRating, availablePlatforms]);
+
+  // Check if the chart data is ready to render
+  const isChartDataReady = leetcodeData.easySolved !== undefined &&
+                            leetcodeData.mediumSolved !== undefined &&
+                            leetcodeData.hardSolved !== undefined;
 
   return (
     <div className="dashboard">
@@ -122,7 +140,7 @@ export default function Dashboard() {
         </div>
         <div id="notifications" className="grid-parts">Notify</div>
         <div id="projects" className="grid-parts">
-        <GitHubContributions username={userData.github} theme="dracula"/>
+          <GitHubContributions username={userData.github} theme="dracula" />
         </div>
         <div id="quickStats" className="grid-parts">
           <div className="grid-content">
@@ -138,7 +156,11 @@ export default function Dashboard() {
           <div className="grid-content">
             <div className="grid-sub-heading">Leetcode Problems</div>
             <div className="grid-chart">
-              <Doughnut data={data} style={{ maxWidth: '300px', margin: '20px auto'}} options={options}/>
+              {isChartDataReady ? (
+                <Doughnut data={data} style={{ maxWidth: '300px', margin: '20px auto' }} options={options} />
+              ) : (
+                <p>Loading chart data...</p>
+              )}
             </div>
           </div>
         </div>
@@ -148,24 +170,22 @@ export default function Dashboard() {
             <div className="grid-sub-content-2">
               <div className="grid-sub-top">
                 <svg width="14" height="16" viewBox="0 0 14 16" fill="none" xmlns="http://www.w3.org/2000/svg" onClick={handlePrevious}>
-                  <path d="M1.25 9.29904C0.250001 8.72169 0.25 7.27831 1.25 6.70096L11.75 0.638783C12.75 0.061432 14 0.783119 14 1.93782L14 14.0622C14 15.2169 12.75 15.9386 11.75 15.3612L1.25 9.29904Z" fill="white"/>
+                  <path d="M1.25 9.29904C0.250001 8.72169 0.25 7.27831 1.25 6.70096L11.75 0.638783C12.75 0.061432 14 0.783119 14 1.93782L14 14.0622C14 15.2169 12.75 15.9386 11.75 15.3612L1.25 9.29904Z" fill="white" />
                 </svg>
                 <span className="grid-sub-heading">{availablePlatforms[platformIndex]?.name || "N/A"}</span>
                 <svg width="14" height="16" viewBox="0 0 14 16" fill="none" xmlns="http://www.w3.org/2000/svg" onClick={handleNext}>
-                  <path d="M12.75 6.70096C13.75 7.27831 13.75 8.72169 12.75 9.29904L2.25 15.3612C1.25 15.9386 -7.52574e-07 15.2169 -7.021e-07 14.0622L-1.72128e-07 1.93782C-1.21654e-07 0.783121 1.25 0.0614327 2.25 0.638783L12.75 6.70096Z" fill="white"/>
+                  <path d="M12.75 6.70096C13.75 7.27831 13.75 8.72169 12.75 9.29904L2.25 15.3612C1.25 15.9386 -7.52574e-07 15.2169 -7.021e-07 14.0622L-6.15056e-07 1.93782C-6.65056e-07 0.783119 1.25 0.061432 2.25 0.638783L12.75 6.70096Z" fill="white" />
                 </svg>
               </div>
-              <div className="rating-value">
-                {displayRating}
-              </div>
-              <div className="rating-max">
-                (max: {maxRating})
+              <div className="grid-sub-content">
+                <div className="rating-value">{displayRating || "N/A"}</div>
+                <div className="rating-max">(max: {maxRating || "N/A"})</div>
               </div>
             </div>
           </div>
         </div>
         <div id="badges" className="grid-parts">
-        <img src={`https://leetcode-badge-showcase.vercel.app/api?username=kevzpeter&theme=dark&filter=comp`} alt="LeetCode Badges"/>
+          <img src={`https://leetcode-badge-showcase.vercel.app/api?username=kevzpeter&theme=dark&filter=comp`} alt="LeetCode Badges" />
         </div>
       </div>
     </div>

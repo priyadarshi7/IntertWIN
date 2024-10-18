@@ -1,0 +1,26 @@
+body {
+    width: 200px;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 10px;
+    background-color: #f4f4f4;
+  }
+  
+  h3 {
+    margin: 0;
+  }
+  
+  #redirect-button {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #4285f4;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  #redirect-button:hover {
+    background-color: #357ae8;
+  }
+  

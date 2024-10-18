@@ -1,8 +1,8 @@
 {
     "manifest_version": 3,
-    "name": "LinkedIn User Redirector",
+    "name": "IntertWin Mini",
     "version": "1.0",
-    "description": "Redirect to user profile based on LinkedIn URL.",
+    "description": "Anayze your candidates as never before.",
     "permissions": [
         "activeTab",
         "scripting"

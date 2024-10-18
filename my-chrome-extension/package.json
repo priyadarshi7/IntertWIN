@@ -1,0 +1,13 @@
+{
+    "name": "linkedin-url-extractor",
+    "version": "1.0.0",
+    "description": "A Chrome extension to search LinkedIn profiles",
+    "scripts": {
+      "build": "vite build",
+      "dev": "vite"
+    },
+    "devDependencies": {
+      "vite": "^4.0.0"
+    }
+  }
+  

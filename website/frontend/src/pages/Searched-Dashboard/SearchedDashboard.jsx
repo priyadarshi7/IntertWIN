@@ -21,6 +21,7 @@ const Item = styled(Paper)(({ theme }) => ({
 // Create SearchedUserContext
 const SearchedUserContext = createContext();
 
+
 // SearchedUserProvider component to provide searched user data
 const SearchedUserProvider = ({ children }) => {
     const { searchedUserId } = useParams();
@@ -108,6 +109,9 @@ export default function SearchedDashboard() {
 }
 
 function SearchedDashboardContent() {
+  const [pinnedRepos, setPinnedRepos] = useState([]);
+  const [loadingPinnedRepos, setLoadingPinnedRepos] = useState(true); // Loading state
+  const [errorPinnedRepos, setErrorPinnedRepos] = useState(null); 
   const { 
     searchedUser, 
     searchedLeetcodeData, 
@@ -171,6 +175,27 @@ function SearchedDashboardContent() {
     }
   };
 
+  const fetchPinnedRepos = async () => {
+    try {
+      setLoadingPinnedRepos(true); // Start loading
+      const response = await axios.get(`https://pinned.berrysauce.me/get/${searchedUser?.github}`);
+      console.log("Pinned Repos Response:", response.data); // Log the response
+      setPinnedRepos(response.data);
+      setErrorPinnedRepos(null); // Clear error if successful
+    } catch (error) {
+      console.error("Error fetching pinned repos:", error);
+      setErrorPinnedRepos("Unable to fetch pinned repositories."); // Set error state
+    } finally {
+      setLoadingPinnedRepos(false); // End loading
+    }
+  };
+  
+  useEffect(() => {
+    if (searchedUser?.github) {
+      fetchPinnedRepos();
+    }
+  }, [searchedUser]);
+
   useEffect(() => {
     if (availablePlatforms[platformIndex]?.name === "Codeforces" && searchedCodeforcesRating.length > 0) {
       const latestRating = searchedCodeforcesRating[searchedCodeforcesRating.length - 1].newRating;
@@ -215,9 +240,34 @@ function SearchedDashboardContent() {
             <div className="user-detail">{searchedUser?.codechef || ""}</div>
           </div>
         </div>
-        <div id="notifications" className="grid-parts">Notify</div>
+        <div id="notifications" className="grid-parts">
+        <div className="grid-sub-heading">Pinned Repositories</div>
+        {loadingPinnedRepos ? (
+    <p>Loading pinned repositories...</p>
+  ) : errorPinnedRepos ? (
+    <p>{errorPinnedRepos}</p>
+  ) : pinnedRepos.length > 0 ? (
+    pinnedRepos.map((repo) => (
+      <div key={repo.name} className="repo-card">
+        <a href={`https://github.com/${repo.author}/${repo.name}`} target="_blank" rel="noopener noreferrer">
+          <h3 style={{color:"yellow"}}>{repo.name}</h3>
+          <p>{repo.description ? repo.description : "No description available."}</p> {/* Default message for empty description */}
+          <span style={{color:"white"}}>Language: {repo.language}</span> | 
+          <span style={{color:"white"}}>Stars: {repo.stars}</span> | 
+          <span style={{color:"white"}}>Forks: {repo.forks}</span>
+        </a>
+      </div>
+    ))
+  ) : (
+    <p>No pinned repositories found.</p>
+  )}
+        </div>
         <div id="projects" className="grid-parts">
           <GitHubContributions username={searchedUser?.github} theme="dracula" />
+        </div>
+        <div id="projects-2" className="grid-parts">
+        <div className="grid-sub-heading">CodeChef</div>
+        <iframe width="100%" height="89%" style={{padding:"0"}}src={`https://codechef-api.vercel.app/heatmap/${searchedUser?.codechef}`}></iframe>
         </div>
         <div id="quickStats" className="grid-parts">
           <div className="grid-content">
@@ -269,6 +319,12 @@ function SearchedDashboardContent() {
         </div>
         <div id="badges" className="grid-parts">
           <img src={`https://leetcode-badge-showcase.vercel.app/api?username=${searchedUser?.leetcode}&theme=dark&filter=comp`} alt="LeetCode Badges" />
+        </div>
+        <div id="graphs" className="grid-parts">
+          <div className="grid-content">
+            <div className="grid-sub-heading">Codechef Rating</div>
+            <iframe width="100%" height="100%" src={`https://codechef-api.vercel.app/rating/${searchedUser?.codechef}`}></iframe>
+          </div>
         </div>
       </div>
     </div>

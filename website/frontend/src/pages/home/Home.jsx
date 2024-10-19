@@ -25,7 +25,7 @@ return(
 {/*Section0*/}
 <div className="page">
     <div className="png"><img src={img}/></div>
-    <div className="gr"><div className="text1">Codexio</div></div>
+    <div className="gr"><div className="text1">IntertWin</div></div>
 </div>
 
 {/*Section1 */}

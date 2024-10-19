@@ -22,7 +22,8 @@ app.use(cors({
         "http://localhost:5173", // Your React frontend
         "http://127.0.0.1:5500", // Your popup's origin
         "chrome-extension://chjjhnjalneidlppjpogmbgfplkncbmc", // Your Chrome extension ID
-        "http://localhost:3000"
+        "http://localhost:3000",
+        "http://localhost:3001"
     ],
     credentials:true,
 }))

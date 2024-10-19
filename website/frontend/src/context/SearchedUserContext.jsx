@@ -37,7 +37,7 @@ export const SearchedUserProvider = ({ children }) => {
         setLoading(true);
         setError(null);
         try {
-            const response = await axios.get(`http://localhost:3000/${searchedUser?.leetcode}/solved`);
+            const response = await axios.get(`http://localhost:3001/${searchedUser?.leetcode}/solved`);
             setSearchedLeetcodeData(response.data);
         } catch (err) {
             console.error("Error fetching searched user's LeetCode problems:", err);

@@ -99,7 +99,6 @@ function DrawerAppBar(props) {
               }}>LOGOUT</Button></li>:
               <li><Button sx={{ color: "white",fontFamily:"afacad"}} onClick={()=>navigate("/user/login")}>LOGIN</Button></li>
               }
-               <SearchDashboard/>
             </ul>
           </Box>
         </Toolbar>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Codeforces Tracker</title>
+    <link rel="stylesheet" href="leaderboard.css">
+</head>
+
+<body>
+    <div id="app">
+        <h1 style="color: white;">IntertWin Leaderboard</h1>
+
+        <div class="tabs">
+            <button id="problems-tab" class="active">Practice</button>
+            <button id="contests-tab">Contests</button>
+            <button id="settings-tab">Settings</button>
+        </div>
+
+        <div id="filter-container" class="filter-container">
+            <h2 style="color: white;">Filter Submissions</h2>
+            <select id="timeframe">
+                <option value="any">Any</option>
+                <option value="24hrs">24 hours</option>
+                <option value="1week">1 week</option>
+                <option value="1month">1 month</option>
+                <option value="1year">1 year</option>
+            </select>
+        </div>
+
+        <div id="problems-content" class="tab-content active">
+            <table>
+                <tr>
+                    <th>Profile</th>
+                    <th>Submission</thead>
+                    <th>Score</th>
+                    <th></th>
+                </tr>
+                <tbody id="friend-list"></tbody>
+            </table>
+        </div>
+
+        <div id="contests-content" class="tab-content hidden">
+            <table>
+                <tr>
+                    <th>Profile</th>
+                    <th>Contests</thead>
+                    <th>Rating</th>
+                </tr>
+                <tbody id="contest-list"></tbody>
+            </table>
+        </div>
+
+        <div id="settings-content" class="tab-content hidden">
+            <div class="input-group">
+                <input type="text" id="friend-handle" placeholder="Enter Codeforces Username">
+                <span id="statusIcon"></span>
+                <button id="add-friend">Add Friend</button>
+            </div>
+            <div id="message"></div>
+            <ul id="friend-settings-list"></ul>
+        </div>
+    </div>
+    <script src="leaderboard.js"></script>
+</body>
+
+</html>

@@ -14,7 +14,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import "./Navbar.css"
 import { useUserContext } from '../../context/UserContext';
@@ -83,7 +83,7 @@ function DrawerAppBar(props) {
             borderRadius:'inherit'}}/>
           </IconButton>
           </div>
-          <Box sx={{ display: { xs: 'none', sm: 'flex', justifyContent: "space-evenly",alignItems:"center"},margin:"auto",borderWidth:'0.2rem',borderStyle:'solid',borderColor:"#6A79FF", background:"linear-gradient(90deg, #050223 0%, #06054D 100%)",borderRadius: "1.7rem",fontWeight:"500",padding:"5px",marginTop:"3vh"}}>
+          <Box sx={{ display: { xs: 'none', sm: 'flex', justifyContent: "space-evenly",alignItems:"center"},margin:"auto",borderWidth:'0.2rem',borderStyle:'solid',borderColor:"#f93f85", background:" linear-gradient(90deg, rgba(68,20,36,1) 17%, rgba(8,4,4,1) 100%)",borderRadius: "1.7rem",fontWeight:"500",padding:"5px",marginTop:"3vh"}}>
             {/* {navItems.map((item) => (
               <Button key={item} sx={{ color: "white",fontFamily:"Montserrat"}}>
                 {item}
@@ -94,6 +94,7 @@ function DrawerAppBar(props) {
              <NavLink to="/calendar"><li><Button sx={{ color:"white",fontFamily:"afacad"}}>EVENT TRACKER</Button></li></NavLink>
               {user?<NavLink to={`/dashboard/${user.userId}`}><li><Button sx={{ color: "white",fontFamily:"afacad"}}>PROFILE</Button></li></NavLink>:""}
               <li><Button sx={{ color: "white",fontFamily:"afacad"}}>FAQ</Button></li>
+              <Link to="https://priyadarshi7.github.io/Leaderboard/"><li><Button sx={{ color: "white",fontFamily:"afacad"}}>COMPETE</Button></li></Link>
               {user?  <li><Button sx={{ color: "white",fontFamily:"afacad"}} onClick={()=>{
               handleLogout();
               }}>LOGOUT</Button></li>:

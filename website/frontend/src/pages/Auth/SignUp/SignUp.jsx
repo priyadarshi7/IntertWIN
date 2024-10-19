@@ -3,6 +3,8 @@ import './SignUp.css';
 import { useNavigate } from 'react-router-dom';
 import { useUserContext } from '../../../context/UserContext';
 import axios from 'axios';
+import RING from "vanta/src/vanta.rings"
+
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -13,6 +15,15 @@ const SignUp = () => {
     email: "",
     password: "",
   });
+
+  
+  React.useEffect(()=>{
+    RING({
+        el:"#signup",
+        backgroundColor:0x0,
+        touchControls:true,
+    })
+},[]);
 
   const [error, setError] = React.useState("");
 
@@ -68,6 +79,7 @@ const SignUp = () => {
   };
 
   return (
+    <div id="signup" style={{height:"100svh"}}>
     <div className="container">
       <input type="checkbox" id="check" />
       <div className="login form">
@@ -98,17 +110,19 @@ const SignUp = () => {
             type="submit"
             className="button"
             value="Sign Up"
+            style={{backgroundColor:"#f93f85"}}
           />
         </form>
         {error && <p style={{ color: "red" }}>{error}</p>}
         <div className="signup">
           <span>Already have an account? 
             <label htmlFor="check">
-              <a href="/user/login">Login</a>
+              <a href="/user/login" style={{color:"#f93f85"}}>Login</a>
             </label>
           </span>
         </div>
       </div>
+    </div>
     </div>
   );
 };

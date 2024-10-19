@@ -3,8 +3,11 @@ import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import { useUserContext } from "../../../context/UserContext";
 import "./Login.css";
+import RING from "vanta/src/vanta.rings"
+
 
 const Login = () => {
+
   const { setUser,userData } = useUserContext();
   const navigate = useNavigate();
   const [data, setData] = React.useState({
@@ -12,6 +15,14 @@ const Login = () => {
     password: "",
   });
   const [error, setError] = React.useState("");
+
+  React.useEffect(()=>{
+    RING({
+        el:"#login",
+        backgroundColor:0x0,
+        touchControls:true,
+    })
+},[]);
 
   function changeHandler(event) {
     const { name, value } = event.target;
@@ -48,6 +59,7 @@ const Login = () => {
   }
 
   return (
+    <div id="login" style={{height:"100svh"}}>
     <div className="container">
       <div className="login form">
         <header>Login</header>
@@ -66,7 +78,7 @@ const Login = () => {
           </div>
           <div>
             <label htmlFor="password">Password:</label>
-            <input
+            <input 
               type="password"
               id="password"
               placeholder="Enter your password"
@@ -77,15 +89,16 @@ const Login = () => {
             />
           </div>
           {error && <p className="error-message">{error}</p>}
-          <a href="#">Forgot password?</a>
-          <input type="submit" className="button" value="Login" />
+          <a href="#" ><h3 style={{color:"#f93f85",fontWeight:"400"}}>Forgot password?</h3></a>
+          <input type="submit" className="button" value="Login" style={{backgroundColor:"#f93f85"}} />
         </form>
         <div className="signup">
           <span>Don't have an account? 
-            <label htmlFor="check"> <a href="/user/signup">Signup</a></label>
+            <label htmlFor="check"> <a href="/user/signup" style={{color:"#f93f85"}}>Signup</a></label>
           </span>
         </div>
       </div>
+    </div>
     </div>
   );
 };

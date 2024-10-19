@@ -24,18 +24,22 @@
 .dashboard{
   padding: 90px 20px 20px 20px;
   width:100%;
+  margin: auto;
 }
 
 .container-dash {
     display: grid;
     height: 100vh;
-    grid-template-columns: 300px auto auto auto;
+    grid-template-columns: 300px auto auto  auto;
     grid-template-rows: 0.2fr 1.5fr 1.2fr 0.8fr;
+   
     grid-template-areas:
       "sidebar notifications notifications notifications"
       "sidebar projects projects projects"
+      "sidebar projects-2 projects-2 projects-2"
       "sidebar quickStats problems ratings"
-      "sidebar badges badges badges";
+      "sidebar badges badges badges"
+      "sidebar graphs graphs graphs";
     grid-gap: 10px;
     font-weight: 800;
     text-transform: uppercase;
@@ -48,10 +52,22 @@
   
   #notifications {
     grid-area: notifications;
+    
   }
   
   #projects {
     grid-area: projects;
+  }
+
+  #graphs{
+    grid-area: graphs;
+    height:50vh;
+    width:100%;
+  }
+  #projects-2 {
+    grid-area: projects-2;
+    height:34.5vh;
+
   }
   
   #sidebar {
@@ -85,6 +101,7 @@
         "notifications"
         "sidebar"
         "projects"
+        "projects-2"
         "quickStats"
         "ratings"
         "problems"

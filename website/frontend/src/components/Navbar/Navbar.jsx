@@ -93,8 +93,8 @@ function DrawerAppBar(props) {
              <NavLink to="/"><li><Button sx={{ color: "white",fontFamily:"afacad"}}>HOME</Button></li></NavLink>
              <NavLink to="/calendar"><li><Button sx={{ color:"white",fontFamily:"afacad"}}>EVENT TRACKER</Button></li></NavLink>
               {user?<NavLink to={`/dashboard/${user.userId}`}><li><Button sx={{ color: "white",fontFamily:"afacad"}}>PROFILE</Button></li></NavLink>:""}
-              <li><Button sx={{ color: "white",fontFamily:"afacad"}}>FAQ</Button></li>
               <Link to="https://priyadarshi7.github.io/Leaderboard/"><li><Button sx={{ color: "white",fontFamily:"afacad"}}>COMPETE</Button></li></Link>
+              <Link to="http://localhost:3000"><li><Button sx={{ color: "white",fontFamily:"afacad"}}>IntertWIN Help</Button></li></Link>
               {user?  <li><Button sx={{ color: "white",fontFamily:"afacad"}} onClick={()=>{
               handleLogout();
               }}>LOGOUT</Button></li>:

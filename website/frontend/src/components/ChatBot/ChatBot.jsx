@@ -8,7 +8,7 @@ const ChatBot = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const sendMessage = async (userMessage) => {
-    const apiKey = process.env.GEMINI; // Replace with your actual API key
+    const apiKey = "AIzaSyCrK-JF78l1pN0wTR8WK-fOKG0OdRln8V8"; // Replace with your actual API key
     const apiUrl =
       'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=' +
       apiKey;
@@ -59,8 +59,8 @@ const ChatBot = () => {
   };
 
   return (
-    <div className={`chatbot-container ${isOpen ? 'open' : ''}`}>
-      <div className="chatbot-header" onClick={() => setIsOpen(!isOpen)}>
+    <div className={`chatbot-container ${isOpen ? 'open' : ''}`} style={{color:"black"}}>
+      <div className="chatbot-header" onClick={() => setIsOpen(!isOpen)}style={{color:"black",backgroundColor:"#f93f85",fontWeight:"900",fontSize:"20px"}}>
         AI Assistant
       </div>
       {isOpen && (

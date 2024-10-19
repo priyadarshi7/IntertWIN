@@ -6,10 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Codeforces Tracker</title>
     <link rel="stylesheet" href="leaderboard.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/tengbao/vanta@latest/dist/vanta.rings.min.js"></script>
 </head>
 
 <body>
-    <div id="app">
+    <div id="app" style="height:100%; width:100%">
         <h1 style="color: white;">IntertWin Leaderboard</h1>
 
         <div class="tabs">
@@ -63,6 +65,17 @@
         </div>
     </div>
     <script src="leaderboard.js"></script>
+    <script>
+        // Initialize Vanta.js on the body or a specific div
+        VANTA.RINGS({
+            el: "html", // The element where you want to apply the effect
+            color: 0x001b44, // Customizing the color (hexadecimal value)
+            shininess: 50,
+            waveHeight: 20,
+            waveSpeed: 0.7,
+            zoom: 0.9
+        });
+    </script>
 </body>
 
 </html>

@@ -16,7 +16,6 @@ export default function ProfileSetup(){
                 <Button className="sidebar-btn" sx={{ color: "white",fontFamily:"afacad", fontSize:"20px"}} onClick={()=>{setMenu("Info")}}>Info</Button>
                 <Button className="sidebar-btn" sx={{ color: "white",fontFamily:"afacad", fontSize:"20px"}} onClick={()=>{setMenu("Socials")}}>Socials</Button>
                 <Button className="sidebar-btn" sx={{ color: "white",fontFamily:"afacad", fontSize:"20px"}} onClick={()=>{setMenu("Platforms")}}>Platforms</Button>
-                <Button className="sidebar-btn" sx={{ color: "white",fontFamily:"afacad", fontSize:"20px"}} onClick={()=>{setMenu("Accounts")}}>Accounts</Button>
                 </div>
                 <div className="profile-edit">
                     {/*Info*/}

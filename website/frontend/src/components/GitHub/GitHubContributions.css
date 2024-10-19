@@ -1,0 +1,15 @@
+.github-contributions {
+    background-color: #1e1e1e; /* Dark background color */
+    color: white; /* Text color for dark theme */
+    padding: 20px; /* Add some padding */
+    border-radius: 8px; /* Round the corners */
+    text-align: center; /* Center the text */
+  }
+  
+  .github-contributions img {
+    width: 100%; 
+    max-width: 800px; 
+    height: auto; 
+    border-radius: 8px; 
+  }
+  

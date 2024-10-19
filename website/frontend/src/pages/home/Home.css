@@ -1,0 +1,90 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+}
+@font-face {
+    font-family: fonty;
+    src:url("../../assets/Font/good-times.rg-regular.otf");
+}
+
+body{
+    height: 100%;
+    /* background-color: black; */
+}
+
+.bg{
+  width:100%;
+  height:100svh;
+}
+
+.png{
+   margin-top: 5%; 
+}
+
+.img2{
+    margin-top: 6%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.page{
+    height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.page .gr .text1{
+  font-family: fonty;
+  margin-top: 5%;
+  color: aliceblue;
+ font-weight: 400;
+ font-size: 110px;
+}
+
+.page .png img{
+  width:200px;
+}
+
+
+  /*RESPONSIVE*/
+  @media (max-width:770px) {
+    .page .gr .text1{
+      font-size: 80px;
+    }
+    .page .png img{
+      width: 160px;
+    }
+  }
+
+  @media (max-width:570px) {
+    .page .gr .text1{
+      font-size: 60px;
+    }
+    .page .png img{
+      width: 100px;
+    }
+  }
+
+
+  @media (max-width:420px) {
+    .page .gr .text1{
+      font-size: 50px;
+    }
+    .page .png img{
+      width: 90px;
+    }
+  }
+
+  @media (max-width:320px) {
+    .page .gr .text1{
+      font-size: 30px;
+    }
+    .page .png img{
+      width: 90px;
+    }
+  }

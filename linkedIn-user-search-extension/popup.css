@@ -1,0 +1,35 @@
+body {
+    width: 200px;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 10px;
+    background-color: rgb(32, 31, 31);
+    border-radius: 16px;
+  }
+
+  h1{
+    font-weight: 600;
+    color: white;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  }
+
+  
+  #search-button {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #4285f4;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  #search-button:hover {
+    background-color: #357ae8;
+  }
+
+  input{
+    height:30px;
+    border-radius: 6px;
+    padding: 5px;
+  }

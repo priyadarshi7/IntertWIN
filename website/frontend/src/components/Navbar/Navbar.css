@@ -1,0 +1,41 @@
+@font-face {
+    font-family: afacad;
+    src: url('../../assets/Font/Afacad-VariableFont_wght.ttf');
+}
+
+*{
+ 
+    box-sizing: border-box;
+  
+}
+.icon{
+    position: absolute;
+    right: 0%;
+ 
+}
+
+.nav-list ul li{
+    font-family: 'afacad' !important;
+}
+
+  @media (max-width:930px) and (min-width:755px) {
+.contact{
+    font-size: 0.8rem;
+    padding-top: 1.4vh;
+}
+   
+}
+  @media (max-width:755px) {
+.contact{
+    font-size: 0.65rem;
+    padding-top: 1.6vh;
+}
+   
+}
+@media (min-height:700px) {
+    .contact{
+        padding-top:7px;
+       height:33px;
+    }
+       
+    }

@@ -1,0 +1,96 @@
+.profile-container{
+    height:100svh;
+    background-color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: afacad;
+}
+
+.profile-main{
+    height:85%;
+    width:95%;
+    display: flex;
+
+    justify-content: center;
+    gap:1vh;
+    margin-top: 10vh;
+}
+
+.profile-sidebar{
+    width: 20%;
+    background-color: #101113;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border-radius: 10px;
+    padding: 40px;
+    height: fit-content;
+}
+
+.profile-edit{
+    width:70%;
+    height: 100%;
+    background-color: #101113;
+    border-radius: 10px;
+    padding: 30px;
+}
+
+
+
+
+
+@media (max-width:720px) {
+    .profile-main{
+        flex-direction: column;
+        align-items: center;
+    }
+    .profile-sidebar{
+        flex-direction: row;
+        width: 90%;
+        height:10%;
+        align-items: center;
+        justify-content: center;
+        gap:10px;
+    }
+    .profile-edit{
+        width:90%;
+        height:90%;
+    }
+
+    .profile-sidebar .MuiButtonBase-root {
+        font-size: 12px;
+        background-color: #000000;
+    }
+}
+
+@media (max-width:780px) {
+    .name{
+        flex-direction: column;
+    }
+    .profile-edit{
+        height:fit-content;
+        margin-bottom: 20px;
+    }
+    .profile-container{
+        height: fit-content;
+    }
+}
+
+@media (width:1024px) {
+    .name{
+        flex-direction: column;
+    }
+    .profile-edit{
+        height:fit-content;
+        margin-bottom: 20px;
+    }
+
+    .profile-container{
+        height: fit-content;
+    }
+
+    .profile-main{
+        align-items: unset;
+    }
+}

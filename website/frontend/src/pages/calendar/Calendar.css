@@ -1,0 +1,75 @@
+@font-face {
+    font-family: afacad;
+    src: url('../../assets/Fonts/Afacad-VariableFont_wght.ttf');
+}
+
+/* src/MyCalendar.css */
+.calendar-main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    /* background-color: #03021D; */
+}
+.calendar-container {
+    /* background: #03021D; */
+    color: #FFFFFF; /* White text */
+    padding: 20px;
+    text-align: center;
+    height: 80svh;
+    width: 90%;
+    border: 0.47px solid #B6BDFF;
+    border-radius: 16px;
+    font-family: 'afacad';
+    margin-bottom: 40px;
+    background: rgba(0, 0, 0, 0.75);
+border-radius: 16px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(5px);
+-webkit-backdrop-filter: blur(5px);
+border: 1px solid white;
+
+  }
+
+  .calendar-title {
+    color: white;
+    font-family: afacad;
+    font-size: 40px;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap:10px;
+    margin-top: 90px;
+  }
+  
+  .fc {
+    /* background: #003366;  */
+    /* Slightly lighter blue for the calendar */
+  }
+  
+  .fc-daygrid-day {
+    color: white; /* White text for the calendar tiles */
+  }
+  
+  .fc-daygrid-day:hover {
+    background: rgba(255, 255, 255, 0.1); /* Light effect for hover */
+  }
+  
+  .fc-daygrid-day.fc-day-today {
+    background: rgba(255, 255, 255, 0.2); /* Light effect for today's date */
+  }
+  
+  .fc-toolbar {
+    color: white; /* White text for the toolbar */
+  }
+  
+  .fc-button {
+    background: #0074d9; /* Blue color for buttons */
+    color: white; /* White text for buttons */
+  }
+  
+  .fc-button:hover {
+    background: #005fa3; /* Darker blue on hover */
+  }
+  

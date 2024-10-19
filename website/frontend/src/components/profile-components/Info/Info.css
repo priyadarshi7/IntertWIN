@@ -1,0 +1,132 @@
+.profile-main{
+    height:85%;
+    width:95%;
+    display: flex;
+
+    justify-content: center;
+    gap:1vh;
+    margin-top: 10vh;
+}
+
+.profile-sidebar{
+    width: 20%;
+    background-color: #101113;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border-radius: 10px;
+    padding: 40px;
+    height: fit-content;
+}
+
+.profile-edit{
+    width:70%;
+    height: 100%;
+    background-color: #101113;
+    border-radius: 10px;
+    padding: 30px;
+}
+
+.profile-info{
+    color: white;
+    display: flex;
+    flex-direction: column;
+}
+
+input{
+    height:30px;
+    border:0;
+    border-radius: 4px;
+    font-family: afacad;
+    padding: 20px;
+    font-size: 20px;
+    background-color: #24272b;
+    color: white;
+    outline: 0;
+}
+
+.profile-info-top{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.name{
+    display: flex;
+    gap:20px;
+}
+
+.sub-name{
+    display: flex;
+    flex-direction: column;
+    gap:5px;
+}
+
+.profile-forms form{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.field .sub-field{
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+
+@media (max-width:720px) {
+    .profile-main{
+        flex-direction: column;
+        align-items: center;
+    }
+    .profile-sidebar{
+        flex-direction: row;
+        width: 90%;
+        height:10%;
+        align-items: center;
+        justify-content: center;
+        gap:10px;
+    }
+    .profile-edit{
+        width:90%;
+        height:90%;
+    }
+
+    .profile-sidebar .MuiButtonBase-root {
+        font-size: 12px;
+        background-color: #000000;
+    }
+}
+
+@media (max-width:780px) {
+    .name{
+        flex-direction: column;
+    }
+    .profile-edit{
+        height:fit-content;
+        margin-bottom: 20px;
+    }
+    .profile-container{
+        height: fit-content;
+    }
+}
+
+@media (width:1024px) {
+    .name{
+        flex-direction: column;
+    }
+    .profile-edit{
+        height:fit-content;
+        margin-bottom: 20px;
+    }
+
+    .profile-container{
+        height: fit-content;
+    }
+
+    .profile-main{
+        align-items: unset;
+    }
+}

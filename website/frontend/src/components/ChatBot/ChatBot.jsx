@@ -8,7 +8,7 @@ const ChatBot = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const sendMessage = async (userMessage) => {
-    const apiKey = 'AIzaSyCrK-JF78l1pN0wTR8WK-fOKG0OdRln8V8'; // Replace with your actual API key
+    const apiKey = process.env.GEMINI; // Replace with your actual API key
     const apiUrl =
       'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=' +
       apiKey;

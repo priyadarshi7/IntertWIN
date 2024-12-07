@@ -34,6 +34,7 @@
     grid-template-rows: 0.2fr 1.5fr 1.2fr 0.8fr;
    
     grid-template-areas:
+      "sidebar techStack techStack techStack"
       "sidebar notifications notifications notifications"
       "sidebar projects projects projects"
       "sidebar projects-2 projects-2 projects-2"
@@ -53,6 +54,10 @@
   #notifications {
     grid-area: notifications;
     
+  }
+
+  #techStack{
+    grid-area: techStack;
   }
   
   #projects {

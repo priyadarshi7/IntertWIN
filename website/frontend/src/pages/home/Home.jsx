@@ -6,6 +6,7 @@ import Section2 from "./Section2/Section2"
 import Section1 from "./Section1/Section1"
 import {useUserContext} from "../../context/UserContext"
 import ChatBotWrapper from "../../components/ChatBot/ChatBot"
+import ContactUs from "../../components/ContactUs/ContactUs"
 
 export default function Home(){
 const {user} = useUserContext();
@@ -39,6 +40,7 @@ return(
     <div className="text5">What Else CODEXIO Does?</div>
     <div className="text6">The Perfect Place To Connect With People.</div>
 </div> */}
+<ContactUs/>
 
 </div>
     )

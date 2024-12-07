@@ -88,7 +88,8 @@ const [errorPinnedRepos, setErrorPinnedRepos] = useState(null); // Error state
   const fetchPinnedRepos = async () => {
     try {
       setLoadingPinnedRepos(true); // Start loading
-      const response = await axios.get(`https://pinned.berrysauce.me/get/${userData?.github}`);
+      const response = await axios.get(`https://pinned.berrysauce.dev/get/${userData?.github}`,{
+    });
       console.log("Pinned Repos Response:", response.data); // Log the response
       setPinnedRepos(response.data);
       setErrorPinnedRepos(null); // Clear error if successful
@@ -158,6 +159,20 @@ const [errorPinnedRepos, setErrorPinnedRepos] = useState(null); // Error state
             <div className="user-detail">{userData?.github || ""}</div>
           </div>
         </div>
+        <div className="grid-parts" id="techStack">
+  <div className="grid-sub-heading">SKILLS</div>
+  <div style={{display:"flex", alignItems:"center",justifyContent:"center",gap:"10px"}}>
+  {userData?.techStack && userData.techStack.length > 0 ? (
+    userData.techStack.map((tech, index) => (
+      <div key={index} className="tech-item" style={{fontSize:"20px",color:"violet" }}>
+        {tech}
+      </div>
+    ))
+  ) : (
+    <p>No tech stack available.</p>
+  )}
+  </div>
+</div>
         <div id="notifications" className="grid-parts">
         <div className="grid-sub-heading">Pinned Repositories</div>
         {loadingPinnedRepos ? (
@@ -191,8 +206,6 @@ const [errorPinnedRepos, setErrorPinnedRepos] = useState(null); // Error state
           <div className="grid-content">
             <div className="grid-sub-heading">Quick Stats</div>
             <div className="grid-sub-content">
-              <h2>Total Active Days:</h2>
-              <h2>Total Contests: </h2>
               <h2>Total Questions Solved: {leetcodeData?.solvedProblem}</h2>
             </div>
           </div>

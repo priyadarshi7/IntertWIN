@@ -8,6 +8,7 @@ import { useUserContext } from "../../../context/UserContext";
 export default function Info() {
     const { userData, setUserData } = useUserContext();
     const {user} = useUserContext();
+    const [techStackInput, setTechStackInput] = React.useState(""); // Input field for tech stack items
 
     // Fetch user data from MongoDB when component mounts or user logs in
     useEffect(() => {
@@ -55,6 +56,25 @@ export default function Info() {
             [event.target.name]: event.target.value,
         }));
     }
+
+        // Add tech stack item to userData
+        function addTechStackItem() {
+            if (techStackInput.trim()) {
+                setUserData(prev => ({
+                    ...prev,
+                    techStack: [...(prev.techStack || []), techStackInput.trim()],
+                }));
+                setTechStackInput(""); // Clear input field after adding
+            }
+        }
+    
+        // Remove a tech stack item
+        function removeTechStackItem(index) {
+            setUserData(prev => ({
+                ...prev,
+                techStack: prev.techStack.filter((_, i) => i !== index),
+            }));
+        }
 
 
     return (
@@ -156,6 +176,38 @@ export default function Info() {
                         </div>
                     </div>
 
+                     {/* Tech Stack Input */}
+                     <div className="field">
+                        <div className="sub-field">
+                            <label>Tech Stack</label>
+                            <div className="tech-input" style={{display:"flex",alignItems:"center",marginBottom:"15px"}}>
+                            <input 
+                                type="text" 
+                                placeholder="Add a technology..." 
+                                value={techStackInput}
+                                onChange={(e) => setTechStackInput(e.target.value)}
+                            />
+                            <Button onClick={addTechStackItem} variant="contained" sx={{ marginLeft: "10px" }}>
+                                Add
+                            </Button>
+                            </div>
+                        </div>
+                        <div className="tech-stack-list">
+                            {userData.techStack?.map((tech, index) => (
+                                <div key={index} className="tech-stack-item" style={{display:"flex", alignItems:"center",background:"black", padding:"10px", borderRadius:"15px", marginBottom:"10px"}}>
+                                    {tech}
+                                    <Button
+                                        onClick={() => removeTechStackItem(index)}
+                                        variant="outlined"
+                                        color="error"
+                                        sx={{ marginLeft: "auto" }}
+                                    >
+                                        Remove
+                                    </Button>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
                     <Button
                         sx={{ color: "white", fontFamily: "afacad", fontSize: "20px", background: "black" }}
                         type="submit"

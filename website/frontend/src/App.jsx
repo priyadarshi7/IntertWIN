@@ -10,6 +10,7 @@ import Login from "./pages/Auth/Login/Login.jsx";
 import { useUserContext } from "./context/UserContext.jsx";
 import GeminiChatBot from "./components/ChatBot/ChatBot.jsx";
 import SearchedDashboard from "./pages/Searched-Dashboard/SearchedDashboard.jsx";
+import ContactUs from "./components/ContactUs/ContactUs.jsx";
 
 export default function App() {
 

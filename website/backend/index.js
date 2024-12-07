@@ -23,9 +23,12 @@ app.use(cors({
         "http://127.0.0.1:5500", // Your popup's origin
         "chrome-extension://chjjhnjalneidlppjpogmbgfplkncbmc", // Your Chrome extension ID
         "http://localhost:3000",
-        "http://localhost:3001"
+        "http://localhost:3001",
+        "https://pinned.berrysauce.me",
+        "hhttps://alfa-leetcode-api.onrender.com",
+        "https://codeforces.com"
     ],
-    credentials:true,
+    credentials: true,
 }))
 
 //router

@@ -28,4 +28,6 @@ router.post('/searchLinkedIn', async (req, res) => {
 });
 
 
+
+
 module.exports = router;

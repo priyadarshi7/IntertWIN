@@ -178,7 +178,7 @@ function SearchedDashboardContent() {
   const fetchPinnedRepos = async () => {
     try {
       setLoadingPinnedRepos(true); // Start loading
-      const response = await axios.get(`https://pinned.berrysauce.me/get/${searchedUser?.github}`);
+      const response = await axios.get(`https://pinned.berrysauce.dev/get/${userData?.github}`);
       console.log("Pinned Repos Response:", response.data); // Log the response
       setPinnedRepos(response.data);
       setErrorPinnedRepos(null); // Clear error if successful
@@ -240,6 +240,20 @@ function SearchedDashboardContent() {
             <div className="user-detail">{searchedUser?.codechef || ""}</div>
           </div>
         </div>
+        <div className="grid-parts" id="techStack">
+  <div className="grid-sub-heading">SKILLS</div>
+  <div style={{display:"flex", alignItems:"center",justifyContent:"center",gap:"10px"}}>
+  {searchedUser?.techStack && searchedUser.techStack.length > 0 ? (
+    searchedUser.techStack.map((tech, index) => (
+      <div key={index} className="tech-item" style={{fontSize:"20px",color:"violet" }}>
+        {tech}
+      </div>
+    ))
+  ) : (
+    <p>No tech stack available.</p>
+  )}
+  </div>
+</div>
         <div id="notifications" className="grid-parts">
         <div className="grid-sub-heading">Pinned Repositories</div>
         {loadingPinnedRepos ? (

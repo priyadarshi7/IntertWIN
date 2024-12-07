@@ -53,6 +53,7 @@ const profileSchema = new mongoose.Schema({
     github: {
         type: String,
     },
+    techStack: [{type:String}]
 });
 
 // Model

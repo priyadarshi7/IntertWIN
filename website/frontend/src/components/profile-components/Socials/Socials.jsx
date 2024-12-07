@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "@mui/material";
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
@@ -8,12 +8,13 @@ import { useUserContext } from "../../../context/UserContext";
 export default function Socials() {
     const { user } = useAuth0();
     const { userData, setUserData } = useUserContext();
+    const [techStackInput, setTechStackInput] = useState(""); // Input field for tech stack items
 
     // Fetch user data if it already exists when the component mounts
     useEffect(() => {
         const fetchUserData = async () => {
             if (user) {
-                console.log("Attempting to fetch data for user ID:", user.sub); // Debugging userId
+                console.log("Attempting to fetch data for user ID:", user.sub);
                 try {
                     const response = await axios.get(`http://localhost:8000/profile/${user.sub}`);
                     console.log("API response:", response.data);
@@ -35,7 +36,7 @@ export default function Socials() {
 
         if (user) fetchUserData();
     }, [user, setUserData]);
-    
+
     // Function to handle user info submission
     async function postUserInfo(event) {
         event.preventDefault();
@@ -64,6 +65,7 @@ export default function Socials() {
             </div>
             <div className="profile-forms">
                 <form onSubmit={postUserInfo}>
+                    {/* Social Links */}
                     <div className="field">
                         <div className="sub-field">
                             <label>LinkedIn</label>
@@ -100,12 +102,13 @@ export default function Socials() {
                             />
                         </div>
                     </div>
+                    {/* Submit Button */}
                     <Button 
-                    sx={{ color: "white", fontFamily: "afacad", fontSize: "20px", background: "black" }} 
-                      type="submit"
-                >
-                    Save
-                </Button>
+                        sx={{ color: "white", fontFamily: "afacad", fontSize: "20px", background: "black" }} 
+                        type="submit"
+                    >
+                        Save
+                    </Button>
                 </form>
             </div>
         </div>

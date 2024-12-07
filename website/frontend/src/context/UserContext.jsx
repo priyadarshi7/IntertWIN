@@ -76,7 +76,7 @@ export const UserProvider = ({ children }) => {
         if (!userData.leetcode) return;
         setLeetcodeLoading(true);
         try {
-            const response = await axios.get(`http://localhost:3001/${userData?.leetcode}/solved`);
+            const response = await axios.get(`https://alfa-leetcode-api.onrender.com/${userData?.leetcode}/solved`);
             setLeetCodeData(response.data);
         } catch (err) {
             console.error("Error fetching LeetCode problems:", err);

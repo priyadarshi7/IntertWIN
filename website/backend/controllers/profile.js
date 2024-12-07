@@ -3,7 +3,7 @@ const profileModel = require("../models/profile");
 // Profile setup
 async function handleProfileSetup(req, res) {
     const {
-        userId, firstName, lastName, email, country, college,degree, branch, linkedIn, twitter, website, codeforces, leetcode, codechef, github
+        techStack,userId, firstName, lastName, email, country, college,degree, branch, linkedIn, twitter, website, codeforces, leetcode, codechef, github
     } = req.body;
 
     try {
@@ -27,7 +27,7 @@ async function handleProfileSetup(req, res) {
             user.leetcode = leetcode;
             user.codechef = codechef;
             user.github = github;
-
+            user.techStack = techStack;
             await user.save(); // Save the updated user
             return res.json({ success: true, message: "Profile Updated", data: user });
         } else {
@@ -47,7 +47,8 @@ async function handleProfileSetup(req, res) {
                 codeforces, 
                 leetcode, 
                 codechef, 
-                github
+                github,
+                techStack,
             });
             return res.json({ success: true, message: "Profile Saved", data: user });
         }

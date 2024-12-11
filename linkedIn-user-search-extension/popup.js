@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 const data = await response.json();
 
                 if (data.success && data.data.length > 0) {
-                    const userId = data.data[1].userId; // Adjust based on your data structure
+                    const userId = data.data[0].userId; // Adjust based on your data structure
                     window.open(`http://localhost:5173/dashboard/search/${userId}`, '_blank');
                 } else {
                     alert("User not found");

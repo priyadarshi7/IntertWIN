@@ -178,7 +178,7 @@ function SearchedDashboardContent() {
   const fetchPinnedRepos = async () => {
     try {
       setLoadingPinnedRepos(true); // Start loading
-      const response = await axios.get(`https://pinned.berrysauce.dev/get/${userData?.github}`);
+      const response = await axios.get(`https://pinned.berrysauce.dev/get/${searchedUser?.github}`);
       console.log("Pinned Repos Response:", response.data); // Log the response
       setPinnedRepos(response.data);
       setErrorPinnedRepos(null); // Clear error if successful

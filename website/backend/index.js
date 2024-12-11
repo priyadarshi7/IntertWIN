@@ -8,6 +8,7 @@ const cors = require("cors")
 const {dbConnect} = require("./connections/dbConnect")
 const profileRouter = require("./routes/profile")
 const userRoute = require("./routes/user");
+const verifyRoute = require("./routes/verify");
 
 //DB Connection
 dbConnect("mongodb://127.0.0.1:27017/IntertWin")
@@ -34,6 +35,7 @@ app.use(cors({
 //router
 app.use("/profile",profileRouter);
 app.use("/user",userRoute);
+app.use("/verify",verifyRoute);
 
 //Server Connect
 const PORT = 8000;

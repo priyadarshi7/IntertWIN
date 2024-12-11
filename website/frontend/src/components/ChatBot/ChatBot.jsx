@@ -1,106 +1,203 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import './ChatBot.css';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
-const ChatBot = () => {
+const Chatbot = () => {
   const [messages, setMessages] = useState([]);
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState("");
   const [isOpen, setIsOpen] = useState(false);
 
-  const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-
-  const sendMessage = async (userMessage) => {
-    const apiKey = "AIzaSyB0s-R5bsbtlJyxnrjyTJrQdDgDmcHzgs4"; // Replace with your actual API key
-    const apiUrl = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=' + apiKey;
-
-    const requestBody = {
-      instances: [
-        {
-          prompt: userMessage,
-          temperature: 0.7,
-          maxOutputTokens: 100,
-        },
-      ],
+  useEffect(() => {
+    const initializeChat = () => {
+      const starterMessage = {
+        role: "assistant",
+        content: "Hello! How can I assist you today? You can ask about upcoming contests or your Codeforces profile details.",
+      };
+      setMessages([starterMessage]);
     };
 
-    let retries = 0;
-    const maxRetries = 5; // Set a limit to avoid infinite retry loop
-    let delay = 1000; // Start with a 1-second delay
+    initializeChat();
+  }, []);
 
-    while (retries < maxRetries) {
-      try {
-        const response = await axios.post(apiUrl, requestBody, {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
+  const sendMessage = async () => {
+    if (!input.trim()) return;
 
-        console.log('API Response:', response.data);
+    const userMessage = { role: "user", content: input };
+    setMessages((prev) => [...prev, userMessage]);
 
-        // Extracting the generated text from the response
-        if (response.data.predictions && response.data.predictions[0] && response.data.predictions[0].content) {
-          return response.data.predictions[0].content;
-        } else {
-          return "I'm sorry, I didn't understand that.";
-        }
-      } catch (error) {
-        if (error.response && error.response.status === 429) {
-          // Handle rate limit (status 429)
-          const retryAfter = error.response.headers['retry-after'];
-          const retryDelay = retryAfter ? parseInt(retryAfter) * 1000 : delay; // Retry after specified time
-          console.log(`Rate limit exceeded. Retrying in ${retryDelay / 1000} seconds...`);
-          await sleep(retryDelay);
-          retries++;
-          delay *= 2; // Double the delay for each retry
-        } else {
-          console.error('Error:', error);
-          return 'Sorry, I encountered an error.';
-        }
-      }
+    // Determine if it's a CP-related query or general AI query
+    if (input.toLowerCase().includes("contests")) {
+      fetchContests();
+    } else if (input.toLowerCase().includes("rating")) {
+      const username = input.split(" ").pop();
+      fetchUserInfo(username);
+    } else {
+      fetchAIResponse(input);
     }
 
-    return 'Sorry, I encountered an issue and could not process your request.';
+    setInput("");
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (input.trim() === '') return;
+  const fetchContests = async () => {
+    try {
+      const response = await axios.get("http://localhost:5000/api/contests");
+      const contests = response.data.map(
+        (contest) => `${contest.name} - ${contest.site} on ${contest.start_time}`
+      );
+      const aiMessage = {
+        role: "assistant",
+        content: contests.join("\n"),
+      };
+      setMessages((prev) => [...prev, aiMessage]);
+    } catch (error) {
+      console.error("Error fetching contests:", error.message);
+      const errorMessage = {
+        role: "assistant",
+        content: "Sorry, I couldn't fetch the contest details.",
+      };
+      setMessages((prev) => [...prev, errorMessage]);
+    }
+  };
 
-    const userMessage = input;
-    setMessages((prev) => [...prev, { text: userMessage, sender: 'user' }]);
-    setInput('');
+  const fetchUserInfo = async (username) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:5000/api/user/${username}`
+      );
+      const user = response.data;
+      const aiMessage = {
+        role: "assistant",
+        content: `Codeforces user ${user.handle} has a rating of ${user.rating} and is ranked ${user.rank}.`,
+      };
+      setMessages((prev) => [...prev, aiMessage]);
+    } catch (error) {
+      console.error("Error fetching user info:", error.message);
+      const errorMessage = {
+        role: "assistant",
+        content: "Sorry, I couldn't fetch the user details.",
+      };
+      setMessages((prev) => [...prev, errorMessage]);
+    }
+  };
 
-    const botResponse = await sendMessage(userMessage);
-    setMessages((prev) => [...prev, { text: botResponse, sender: 'bot' }]);
+  const fetchAIResponse = async (query) => {
+    try {
+      const response = await axios.post("http://localhost:5000/api/ai", {
+        query,
+      });
+      const aiMessage = { role: "assistant", content: response.data.ai };
+      setMessages((prev) => [...prev, aiMessage]);
+    } catch (error) {
+      console.error("Error:", error.message);
+      const errorMessage = {
+        role: "assistant",
+        content: "Sorry, I couldn't process your query.",
+      };
+      setMessages((prev) => [...prev, errorMessage]);
+    }
   };
 
   return (
-    <div className={`chatbot-container ${isOpen ? 'open' : ''}`} style={{ color: "black" }}>
-      <div className="chatbot-header" onClick={() => setIsOpen(!isOpen)} style={{ color: "black", backgroundColor: "#f93f85", fontWeight: "900", fontSize: "20px" }}>
-        AI Assistant
+    <div>
+      <div
+        onClick={() => setIsOpen(!isOpen)}
+        style={{
+          position: "fixed",
+          bottom: "20px",
+          right: "20px",
+          width: "60px",
+          height: "60px",
+          backgroundColor: "#007bff",
+          color: "#fff",
+          borderRadius: "50%",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          cursor: "pointer",
+          boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)",
+          zIndex: "10000"
+        }}
+      >
+        💬
       </div>
+
       {isOpen && (
-        <>
-          <div className="chatbot-messages">
-            {messages.map((msg, index) => (
-              <div key={index} className={`message ${msg.sender}`}>
-                {msg.text}
+        <div
+          style={{
+            position: "fixed",
+            bottom: "90px",
+            right: "20px",
+            width: "350px",
+            height: "500px",
+            backgroundColor: "#f9f9f9",
+            border: "1px solid #ddd",
+            borderRadius: "10px",
+            display: "flex",
+            flexDirection: "column",
+            zIndex: "10000"
+          }}
+        >
+          <div
+            style={{
+              backgroundColor: "#007bff",
+              color: "#fff",
+              padding: "15px",
+              textAlign: "center",
+              fontWeight: "bold",
+            }}
+          >
+            IntertWIN Chatbot
+          </div>
+          <div style={{ flex: 1, padding: "15px", overflowY: "auto" }}>
+            {messages.map((msg, idx) => (
+              <div
+                key={idx}
+                style={{
+                  margin: "10px 0",
+                  textAlign: msg.role === "user" ? "right" : "left",
+                }}
+              >
+                <div
+                  style={{
+                    display: "inline-block",
+                    padding: "10px 15px",
+                    borderRadius: "15px",
+                    background: msg.role === "user" ? "#007bff" : "#f1f1f1",
+                    color: msg.role === "user" ? "#fff" : "#000",
+                    maxWidth: "80%",
+                    wordWrap: "break-word",
+                  }}
+                >
+                  {msg.content}
+                </div>
               </div>
             ))}
           </div>
-          <form className="chatbot-input" onSubmit={handleSubmit}>
+          <div style={{ display: "flex", padding: "10px" }}>
             <input
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="Type your message..."
+              placeholder="Type a message..."
+              style={{ flex: 1, padding: "10px", borderRadius: "5px" }}
             />
-            <button type="submit">Send</button>
-          </form>
-        </>
+            <button
+              onClick={sendMessage}
+              style={{
+                marginLeft: "10px",
+                padding: "10px",
+                backgroundColor: "#007bff",
+                color: "#fff",
+                borderRadius: "5px",
+                cursor: "pointer",
+              }}
+            >
+              Send
+            </button>
+          </div>
+        </div>
       )}
     </div>
   );
 };
 
-export default ChatBot;
+export default Chatbot;

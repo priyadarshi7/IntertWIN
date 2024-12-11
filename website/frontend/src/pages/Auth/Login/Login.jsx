@@ -45,6 +45,7 @@ const Login = () => {
           userId: response.data.data.userId,
           name: response.data.data.name,
           email: response.data.data.email,
+          verifiedPlatforms:response.data.data.verifiedPlatforms,
         });
         navigate("/");
       } else {

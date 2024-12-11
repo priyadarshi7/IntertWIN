@@ -53,7 +53,13 @@ const profileSchema = new mongoose.Schema({
     github: {
         type: String,
     },
-    techStack: [{type:String}]
+    techStack: [{type:String}],
+    verifiedPlatforms:{
+        codeforces:{
+            type:Boolean,
+            default:false,
+        },
+    } 
 });
 
 // Model

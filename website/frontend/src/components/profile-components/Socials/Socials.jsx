@@ -58,6 +58,7 @@ export default function Socials() {
         }));
     }
 
+
     return (
         <div className="profile-info">
             <div className="profile-info-top">

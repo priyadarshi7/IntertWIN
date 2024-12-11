@@ -1,29 +1,68 @@
 import React, { useEffect } from "react";
-import { Button } from "@mui/material";
+import { Button, Modal, Box, Typography, CircularProgress } from "@mui/material";
 import axios from "axios";
 import "./Platforms.css";
 import { useUserContext } from "../../../context/UserContext";
 
-export default function Platforms() {
-  const { userData, setUserData,user } = useUserContext();
+const VerificationModal = ({ open, handleClose, platform, verificationCode, onVerify }) => {
+  return (
+    <Modal open={open} onClose={handleClose}>
+      <Box className="modal-box" style={{ color: "white" }}>
+        <Typography variant="h6" className="modal-title">
+          Verify {platform} Profile
+        </Typography>
+        <div className="verification-steps">
+          <Typography variant="body1">
+            Step 1: Go to https://{platform.toLowerCase()}.com/profile
+          </Typography>
+          <Typography variant="body1">
+            Step 2: Edit the "First Name" section and paste the following code:
+          </Typography>
+          <Box className="verification-code">
+            <code>{verificationCode}</code>
+          </Box>
+          <Typography variant="body1">Step 3: Save your profile.</Typography>
+          <Typography variant="body1">Step 4: Click on the verify button below.</Typography>
+          <Typography variant="body2" className="note">
+            Note: After verification, you may change your first name back to normal.
+          </Typography>
+          <Button
+            variant="contained"
+            fullWidth
+            onClick={onVerify}
+            className="verify-button"
+            sx={{ mt: 2 }}
+          >
+            Verify
+          </Button>
+        </div>
+      </Box>
+    </Modal>
+  );
+};
 
-  // Fetch user data if it already exists when the component mounts
+export default function Platforms() {
+  const { userData, setUserData, user } = useUserContext();
+  const [verificationModal, setVerificationModal] = React.useState({
+    open: false,
+    platform: "",
+    code: ""
+  });
+  const [verificationStatus, setVerificationStatus] = React.useState({});
+  const [isVerifying, setIsVerifying] = React.useState({});
+
   useEffect(() => {
     const fetchUserData = async () => {
       if (user) {
-        console.log("Attempting to fetch data for user ID:", user.sub); // Debugging userId
         try {
           const response = await axios.get(`http://localhost:8000/profile/${user.userId}`);
-          console.log("API response:", response.data);
-
           if (response.data.success && response.data.data) {
             setUserData({
               userId: user.sub,
               email: user.email,
               ...response.data.data,
             });
-          } else {
-            console.warn("No user data found in the database.");
+            setVerificationStatus(response.data.data.verifiedPlatforms || {});
           }
         } catch (error) {
           console.error("Error fetching user data:", error.message || error);
@@ -34,26 +73,121 @@ export default function Platforms() {
     if (user) fetchUserData();
   }, [user, setUserData]);
 
-  // Function to handle user info submission
-  async function postUserInfo(event) {
-    event.preventDefault();
-    try {
-      const response = await axios.post("http://localhost:8000/profile", userData);
-      console.log(response.data);
-      alert("Social info saved successfully!");
-    } catch (err) {
-      console.error(err);
-      alert("Failed to save user info. Please try again.");
-    }
-  }
+  const generateVerificationCode = () => {
+    const code = Math.random().toString(36).substring(2, 8).toUpperCase();
+    return `VERIFY_${code}`;
+  };
 
-  // Handle form input changes
-  function handleInputs(event) {
-    setUserData(prev => ({
+  const handleVerificationClick = (platform) => {
+    const code = generateVerificationCode();
+    setVerificationModal({
+      open: true,
+      platform,
+      code
+    });
+  };
+
+  const handleVerify = async () => {
+    const { platform, code } = verificationModal;
+    const platformLower = platform.toLowerCase();
+
+    setIsVerifying((prev) => ({ ...prev, [platformLower]: true }));
+
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 3000));
+
+      const response = await axios.post(`http://localhost:8000/verify`, {
+        userId: user.userId,
+        platform: platformLower,
+        username: userData[platformLower],
+        verificationCode: code
+      });
+
+      if (response.data.success) {
+        const updatedStatus = {
+          ...verificationStatus,
+          [platformLower]: true
+        };
+        setVerificationStatus(updatedStatus);
+
+        await axios.post("http://localhost:8000/profile", {
+          ...userData,
+          userId: user.userId,
+          verifiedPlatforms: updatedStatus
+        });
+
+        alert(`${platform} profile verified successfully!`);
+      } else {
+        alert(response.data.message || "Verification failed. Please ensure you've updated your profile correctly.");
+      }
+    } catch (error) {
+      console.error("Verification error:", error);
+      alert(error.response?.data?.message || "Verification failed. Please try again.");
+    } finally {
+      setIsVerifying((prev) => ({ ...prev, [platformLower]: false }));
+      setVerificationModal({ open: false, platform: "", code: "" });
+    }
+  };
+
+  const handleInputs = async (event) => {
+    const { name, value } = event.target;
+
+    setUserData((prev) => ({
       ...prev,
-      [event.target.name]: event.target.value,
+      [name]: value,
     }));
-  }
+
+    const updatedStatus = {
+      ...verificationStatus,
+      [name]: false,
+    };
+    setVerificationStatus(updatedStatus);
+
+    try {
+      await axios.post("http://localhost:8000/profile", {
+        ...userData,
+        [name]: value,
+        userId: user.userId,
+        verifiedPlatforms: updatedStatus
+      });
+    } catch (error) {
+      console.error("Error updating profile:", error);
+    }
+  };
+
+  const renderPlatformInput = (platform) => (
+    <div className="field" key={platform}>
+      <div className="sub-field">
+        <label>{platform}</label>
+        <div className="input-verify-container">
+          <input
+            type="text"
+            placeholder={platform}
+            name={platform.toLowerCase()}
+            onChange={handleInputs}
+            value={userData[platform.toLowerCase()] || ""}
+          />
+          {userData[platform.toLowerCase()] && (
+            <Button
+              variant="contained"
+              size="small"
+              onClick={() => handleVerificationClick(platform)}
+              disabled={verificationStatus[platform.toLowerCase()]}
+              sx={{ ml: 1, minWidth: 100 }}
+            >
+              {isVerifying[platform.toLowerCase()] ? (
+                <CircularProgress size={20} color="inherit" />
+              ) : verificationStatus[platform.toLowerCase()] ? (
+                "Verified ✓"
+              ) : (
+                "Verify"
+              )}
+            </Button>
+          )}
+        </div>
+      </div>
+    </div>
+  );
 
   return (
     <div className="profile-info">
@@ -61,67 +195,38 @@ export default function Platforms() {
         <h2 style={{ fontFamily: "afacad" }}>Platforms Info</h2>
         <Button
           sx={{ color: "white", fontFamily: "afacad", fontSize: "20px", background: "black" }}
-          onClick={(e) => postUserInfo(e)} // Wrap function to prevent immediate execution
+          onClick={async () => {
+            try {
+              await axios.post("http://localhost:8000/profile", {
+                ...userData,
+                userId: user.userId,
+                verifiedPlatforms: verificationStatus
+              });
+              alert("Social info saved successfully!");
+            } catch (error) {
+              console.error(error);
+              alert("Failed to save user info. Please try again.");
+            }
+          }}
         >
           Save
         </Button>
       </div>
       <div className="profile-forms">
         <form>
-          {/* Codeforces */}
-          <div className="field">
-            <div className="sub-field">
-              <label>Codeforces</label>
-              <input
-                type="text"
-                placeholder="Codeforces"
-                name="codeforces" // Add name attribute
-                onChange={handleInputs}
-                value={userData.codeforces || ""}
-              />
-            </div>
-          </div>
-          {/* Leetcode */}
-          <div className="field">
-            <div className="sub-field">
-              <label>Leetcode</label>
-              <input
-                type="text"
-                placeholder="Leetcode"
-                name="leetcode" // Add name attribute
-                onChange={handleInputs}
-                value={userData.leetcode || ""}
-              />
-            </div>
-          </div>
-          {/* Codechef */}
-          <div className="field">
-            <div className="sub-field">
-              <label>Codechef</label>
-              <input
-                type="text"
-                placeholder="Codechef"
-                name="codechef" // Add name attribute
-                onChange={handleInputs}
-                value={userData.codechef || ""}
-              />
-            </div>
-          </div>
-          {/*GitHub*/}
-          <div className="field">
-            <div className="sub-field">
-              <label>GitHub</label>
-              <input
-                type="text"
-                placeholder="GitHub"
-                name="github" // Add name attribute
-                onChange={handleInputs}
-                value={userData.github || ""}
-              />
-            </div>
-          </div>
+          {["Codeforces", "Leetcode", "Codechef", "GitHub"].map((platform) =>
+            renderPlatformInput(platform)
+          )}
         </form>
       </div>
+
+      <VerificationModal
+        open={verificationModal.open}
+        handleClose={() => setVerificationModal({ open: false, platform: "", code: "" })}
+        platform={verificationModal.platform}
+        verificationCode={verificationModal.code}
+        onVerify={handleVerify}
+      />
     </div>
   );
 }
